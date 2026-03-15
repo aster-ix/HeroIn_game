@@ -15,7 +15,7 @@ MonoBehaviour:
   EnemyName: 
   Health: 100
   Defense: 1
-  MoveSpeed: 10
+  MoveSpeed: 5
   Damage: 1
   Sprite: {fileID: -835154295696425961, guid: 65a9c3a170438cc48bbf526f7255b66c, type: 3}
   ChaseDistance: 3
