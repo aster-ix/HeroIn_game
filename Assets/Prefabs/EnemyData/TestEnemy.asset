@@ -16,6 +16,9 @@ MonoBehaviour:
   Health: 100
   Defense: 1
   MoveSpeed: 5
+  DistanceFromPlayer: 2
   Damage: 1
+  MaxExp: 0
+  MinExp: 0
   Sprite: {fileID: -835154295696425961, guid: 65a9c3a170438cc48bbf526f7255b66c, type: 3}
   ChaseDistance: 3

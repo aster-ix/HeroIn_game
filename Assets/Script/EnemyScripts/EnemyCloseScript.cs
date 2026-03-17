@@ -2,8 +2,8 @@
 
 public class EnemyCloseScript : EnemyBaseScript
 {
-    public void Attack()
+    protected override void Attack()
     {
-        Debug.Log("Attack");
+        Debug.Log("Close Attack");
     }
 }
