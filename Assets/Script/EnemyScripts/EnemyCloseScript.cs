@@ -4,6 +4,7 @@ public class EnemyCloseScript : EnemyBaseScript
 {
     protected override void Attack()
     {
-        Debug.Log("Close Attack");
+        _playerHealth.TakeDamage(Damage);
+        //Debug.Log("Close Attack");
     }
 }

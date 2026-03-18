@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -16,25 +17,36 @@ public class EnemyBaseScript : MonoBehaviour
     public float Damage;
     public float MaxExp;
     public float MinExp;
+    public float AttackCooldown = 1;
+
+    protected bool _isAttacking = false;
+    protected bool _playerInRange = false;
     
-    private NavMeshAgent _navMeshAgent;
-    private SpriteRenderer _spriteRenderer;
-    private GameObject _player;
-    private Vector3 _playerPos;
-    private PlayerHealth _playerHealth;
+    protected NavMeshAgent _navMeshAgent;
+    protected SpriteRenderer _spriteRenderer;
+    protected GameObject _player;
+    protected Vector3 _playerPos;
+    protected PlayerHealth _playerHealth;
+    protected Coroutine _atackingPlayer;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>(); 
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        
+        
         _player = FindPlayer();
         _playerHealth = _player.GetComponent<PlayerHealth>();
         UpdatePlayerPosition();
-        //Debug.Log(_player);
-        //Из скриптабле обжект закидываем инфу о противнике
-        _spriteRenderer = GetComponent<SpriteRenderer>(); 
-        _spriteRenderer.sprite = Data.Sprite;
+
         
+        
+        //Из скриптабле обжект закидываем инфу о противнике
+        
+        
+        _spriteRenderer.sprite = Data.Sprite;
         Health = Data.Health;
         Defense = Data.Defense;
         MoveSpeed = Data.MoveSpeed;
@@ -44,10 +56,10 @@ public class EnemyBaseScript : MonoBehaviour
         MinExp = Data.MinExp;
         
         //Настраиваем NavMeshAgent
-        _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
         _navMeshAgent.speed = MoveSpeed;
+        _navMeshAgent.stoppingDistance = DistanceFromPlayer;
     }
 
     // Update is called once per frame
@@ -59,15 +71,16 @@ public class EnemyBaseScript : MonoBehaviour
     void FixedUpdate()
     {
         UpdatePlayerPosition();
-        if ((_playerPos - gameObject.transform.position).magnitude > DistanceFromPlayer)
+        _navMeshAgent.SetDestination(_playerPos);
+        if (_navMeshAgent.remainingDistance > DistanceFromPlayer)
         {
-            _navMeshAgent.isStopped = false;
-            _navMeshAgent.SetDestination(_playerPos);
+            _playerInRange = false;
         }
-        else
+        else  if(!_isAttacking)
         {
-            _navMeshAgent.isStopped = true;
-            Attack();
+            _playerInRange = true;
+            StartCoroutine(DamagePlayer());
+            
         }
     }
 
@@ -106,7 +119,16 @@ public class EnemyBaseScript : MonoBehaviour
         //TODO: Сделать спавн опыта
         Destroy(this.gameObject);
     }
-    
-    
-    
+
+    private IEnumerator DamagePlayer()
+    {
+        _isAttacking = true;
+        while (_playerInRange && _playerHealth != null)
+        {
+            Attack();
+           // Debug.Log("Base Damage");
+            yield return new WaitForSeconds(AttackCooldown);
+        }
+        _isAttacking = false;
+    }
 }

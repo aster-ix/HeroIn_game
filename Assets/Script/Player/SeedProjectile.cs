@@ -42,11 +42,11 @@ public class SeedProjectile : MonoBehaviour
         Destroy(gameObject, lifetime); 
     }
 
-   /* private void OnTriggerEnter2D(Collider2D other)
+   private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<EnemyHealth>(out var enemy)) // нужны хп врагов
+        if (other.TryGetComponent<EnemyBaseScript>(out var enemy)) // нужны хп врагов
         {
-            enemy.TakeDamage(damage);
+            enemy.GetDamage(damage);
             if (isCrit) Debug.Log($"<color=red>КРИТ {damage}</color>");
             Destroy(gameObject);
             return;
@@ -54,5 +54,5 @@ public class SeedProjectile : MonoBehaviour
 
         if (!other.isTrigger)
             Destroy(gameObject);
-    }*/
+    }
 }
