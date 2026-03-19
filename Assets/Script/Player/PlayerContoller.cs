@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveInput = ReadMoveInput();
         rb.linearVelocity = moveInput.normalized * stats.vitaminB;
-        FlipSprite(moveInput);
+        FlipSprite();
     }
 
     private Vector2 ReadMoveInput()
@@ -39,11 +39,14 @@ public class PlayerController : MonoBehaviour
         return dir;
     }
 
-    private void FlipSprite(Vector2 moveInput)
+    private void FlipSprite()
     {
         if (spriteRenderer == null) return;
-        if (moveInput.x > 0.01f) spriteRenderer.flipX = false;
-        else if (moveInput.x < -0.01f) spriteRenderer.flipX = true;
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        if (mouseWorld.x > transform.position.x)
+            spriteRenderer.flipX = true;
+        else
+            spriteRenderer.flipX = false;
     }
 
     public void ApplyStatUpgrade(StatType stat, float value)
