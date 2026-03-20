@@ -2,24 +2,35 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-
 public class LevelManager : MonoBehaviour
 {
+    [Header("Ссылки")]
+    public PlayerController player;
+    public PlayerHealth playerHealth;  
+
+    [Header("XP / Level")]
     public int currentLevel = 1;
     public float currentXP = 0f;
-
     public float baseXPRequired = 100f;
     public float xpScaling = 1.3f;
 
+    [Header("Апгрейды")]
     public int upgradeChoicesCount = 3;
 
-    public PlayerController player;
-
+    // HUDController.OnLevelUp  +  UpgradeUI.OnLevelUp
     public UnityEvent<int> OnLevelUp;
+    // UpgradeUI.ShowUpgradeChoices
     public UnityEvent<List<UpgradeOption>> OnUpgradeChoices;
+    // HUDController.OnXPChanged
     public UnityEvent<float, float> OnXPChanged;
 
     private float xpRequired;
+
+    private void Awake()
+    {
+        if (player == null) player = GetComponent<PlayerController>();
+        if (playerHealth == null) playerHealth = GetComponent<PlayerHealth>();
+    }
 
     private void Start()
     {
@@ -48,15 +59,19 @@ public class LevelManager : MonoBehaviour
         OnXPChanged?.Invoke(currentXP, xpRequired);
 
         Time.timeScale = 0f;
-        var choices = GenerateUpgradeChoices(upgradeChoicesCount);
-        OnUpgradeChoices?.Invoke(choices);
+        OnUpgradeChoices?.Invoke(GenerateUpgradeChoices(upgradeChoicesCount));
     }
 
     public void SelectUpgrade(UpgradeOption upgrade)
     {
         player.ApplyStatUpgrade(upgrade.statType, upgrade.value);
+
+        // cgециальные побочные эффекты
+        if (upgrade.statType == StatType.VitaminD && playerHealth != null)
+            playerHealth.OnMaxHpUpgraded(upgrade.value); // лечим на величину апгрейда
+
         Time.timeScale = 1f;
-        Debug.Log($"{upgrade.displayName} +{upgrade.value}");
+        Debug.Log($"Апгрейд выбран: {upgrade.displayName} +{upgrade.value}");
     }
 
     private List<UpgradeOption> GenerateUpgradeChoices(int count)
@@ -72,7 +87,6 @@ public class LevelManager : MonoBehaviour
         var choices = new List<UpgradeOption>();
         for (int i = 0; i < Mathf.Min(count, all.Count); i++)
             choices.Add(all[i]);
-
         return choices;
     }
 
@@ -84,30 +98,32 @@ public class LevelManager : MonoBehaviour
             {
                 statType    = StatType.VitaminD,
                 displayName = "Витамин D",
-                description = "+HP",
-                value       = 25f, // здесь значения надо продумать
-                // icon        = "💛" // можно иконки поделать 
+                description = "+HP (и мгновенное лечение)",
+                icon        = "💛",
+                value       = 25f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminC,
                 displayName = "Витамин C",
                 description = "+% защиты",
+                icon        = "🟠",
                 value       = 10f,
-                
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminA,
                 displayName = "Витамин A",
                 description = "+ к размеру снарядов",
-                value       = 0.3f,
+                icon        = "🟡",
+                value       = 0.05f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminB,
                 displayName = "Витамин B",
-                description = "+ к скорости",
+                description = "+ к скорости движения",
+                icon        = "🔵",
                 value       = 1f,
             },
             new UpgradeOption
@@ -115,6 +131,7 @@ public class LevelManager : MonoBehaviour
                 statType    = StatType.VitaminK,
                 displayName = "Витамин K",
                 description = "+% шанс крита",
+                icon        = "🔴",
                 value       = 10f,
             },
             new UpgradeOption
@@ -122,6 +139,7 @@ public class LevelManager : MonoBehaviour
                 statType    = StatType.VitaminE,
                 displayName = "Витамин E",
                 description = "+ регенерации HP/с",
+                icon        = "💚",
                 value       = 2f,
             },
             new UpgradeOption
@@ -129,6 +147,7 @@ public class LevelManager : MonoBehaviour
                 statType    = StatType.VitaminPP,
                 displayName = "Витамин PP",
                 description = "+ к урону",
+                icon        = "⚔️",
                 value       = 8f,
             },
         };

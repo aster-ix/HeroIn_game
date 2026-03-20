@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3921520529173447276}
   - component: {fileID: 8462659283266948525}
   - component: {fileID: 2008052300291027445}
-  - component: {fileID: 8030396720920211363}
+  - component: {fileID: -5150679799037791504}
   m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.14, y: 0.06, z: -0.13}
-  m_LocalScale: {x: 0.25867653, y: 0.225, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -157,7 +157,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8030396720920211363
+--- !u!114 &-5150679799037791504
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a27351eb3910f846b41627215200cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeedProjectile
-  speed: 12
+  speed: 9
   lifetime: 3
-  baseScale: 0.25
+  baseScale: 1
   normalColor: {r: 0, g: 0, b: 0, a: 1}
-  critColor: {r: 0.23018861, g: 0, b: 0, a: 1}
+  critColor: {r: 1, g: 0, b: 0, a: 1}

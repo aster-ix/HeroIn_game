@@ -9,11 +9,11 @@ public class PlayerStats
     [Tooltip("Витамин D — макс. HP")]
     public float vitaminD = 100f;
 
-    [Tooltip("Витамин C — броня")]
+    [Tooltip("Витамин C — броня (0–100%)")]
     [Range(0f, 100f)]
     public float vitaminC = 0f;
 
-    [Tooltip("Витамин A — масштаб снарядов")]
+    [Tooltip("Витамин A — размер снарядов")]
     public float vitaminA = 0.25f;
 
     [Tooltip("Витамин B — скорость движения")]
@@ -32,13 +32,11 @@ public class PlayerStats
     [Tooltip("Множитель крит-урона")]
     public float critMultiplier = 2f;
 
-
     public float RollDamage(out bool isCrit)
     {
         isCrit = Random.Range(0f, 100f) < vitaminK;
         return isCrit ? vitaminPP * critMultiplier : vitaminPP;
     }
-
 
     public float ApplyArmor(float incomingDamage)
     {
@@ -46,4 +44,3 @@ public class PlayerStats
         return incomingDamage * (1f - reduction);
     }
 }
-

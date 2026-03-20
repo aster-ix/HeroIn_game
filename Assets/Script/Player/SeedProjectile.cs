@@ -4,9 +4,9 @@ using UnityEngine;
 public class SeedProjectile : MonoBehaviour
 {
     public float speed = 12f;
-    public float lifetime = 0.6f; // короткое время — меньше клонов висит одновременно
+    public float lifetime = 0.6f;
 
-    public float baseScale = 0.25f;
+    public float baseScale = 1f;
 
     public Color normalColor = Color.black;
     public Color critColor = Color.red;
@@ -29,7 +29,7 @@ public class SeedProjectile : MonoBehaviour
         direction = dir.normalized;
         damage = stats.RollDamage(out isCrit);
 
-        float scale = isCrit ? baseScale * 1.4f : baseScale;
+        float scale = baseScale * stats.vitaminA * (isCrit ? 1.4f : 1f);
         transform.localScale = new Vector3(scale, scale, 1f);
 
         if (sr != null)
@@ -39,15 +39,15 @@ public class SeedProjectile : MonoBehaviour
     private void Start()
     {
         rb.linearVelocity = direction * speed;
-        Destroy(gameObject, lifetime); 
+        Destroy(gameObject, lifetime);
     }
 
-   private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<EnemyBaseScript>(out var enemy)) // нужны хп врагов
+        if (other.TryGetComponent<EnemyBaseScript>(out var enemy))
         {
             enemy.GetDamage(damage);
-            if (isCrit) Debug.Log($"<color=red>КРИТ {damage}</color>");
+            if (isCrit) Debug.Log($"<color=red>КРИТ! {damage:F0}</color>");
             Destroy(gameObject);
             return;
         }
