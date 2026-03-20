@@ -3,13 +3,14 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
+
 public class UpgradeCard : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI iconText;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descText;
     [SerializeField] private TextMeshProUGUI valueText;
-    [SerializeField] private TextMeshProUGUI currentText; // текущее значение стата
+    [SerializeField] private TextMeshProUGUI currentText;
 
     [SerializeField] private Button selectButton;
     [SerializeField] private Image background;
@@ -26,7 +27,7 @@ public class UpgradeCard : MonoBehaviour
     }
 
 
-    public void Setup(UpgradeOption option, Action callback, PlayerStats stats)
+    public void Setup(UpgradeOption option, Action callback, PlayerStats stats = null)
     {
         onSelected = callback;
 
@@ -49,29 +50,30 @@ public class UpgradeCard : MonoBehaviour
     {
         switch (opt.statType)
         {
-            case StatType.VitaminC:
-            case StatType.VitaminK:
-                return $"+{opt.value:F0}%";
-            case StatType.VitaminA:
-                return $"+{opt.value:F2}x";
-            default:
-                return opt.value % 1 == 0 ? $"+{(int)opt.value}" : $"+{opt.value:F1}";
+            case StatType.VitaminD: return $"+{opt.value:F0} HP";
+            case StatType.VitaminC: return $"+{opt.value:F0}% armor";
+            case StatType.VitaminA: return $"+{opt.value:F2}x scale";
+            case StatType.VitaminB: return $"+{opt.value:F1} speed";
+            case StatType.VitaminK: return $"+{opt.value:F0}% crit chance";
+            case StatType.VitaminE: return $"+{opt.value:F1} HP/s";
+            case StatType.VitaminPP: return $"+{opt.value:F0} damage";
+            default: return $"+{opt.value}";
         }
     }
 
-
+    // "сейчас: 100 HP" и т.п.
     private string FormatCurrent(StatType stat, PlayerStats s)
     {
         if (s == null) return "";
         switch (stat)
         {
-            case StatType.VitaminD: return $"{s.vitaminD:F0} HP";
-            case StatType.VitaminC: return $"{s.vitaminC:F0}% armor";
-            case StatType.VitaminA: return $"{s.vitaminA:F2}x scale";
-            case StatType.VitaminB: return $"{s.vitaminB:F1} speed";
-            case StatType.VitaminK: return $"{s.vitaminK:F0}% crit chance";
-            case StatType.VitaminE: return $"{s.vitaminE:F1} HP/s";
-            case StatType.VitaminPP: return $"{s.vitaminPP:F0} damage";
+            case StatType.VitaminD: return $"сейчас: {s.vitaminD:F0} HP";
+            case StatType.VitaminC: return $"сейчас: {s.vitaminC:F0}% armor";
+            case StatType.VitaminA: return $"сейчас: {s.vitaminA:F2}x scale";
+            case StatType.VitaminB: return $"сейчас: {s.vitaminB:F1} speed";
+            case StatType.VitaminK: return $"сейчас: {s.vitaminK:F0}% crit chance";
+            case StatType.VitaminE: return $"сейчас: {s.vitaminE:F1} HP/s";
+            case StatType.VitaminPP: return $"сейчас: {s.vitaminPP:F0} damage";
             default: return "";
         }
     }
