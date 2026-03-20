@@ -15,9 +15,9 @@ MonoBehaviour:
   EnemyName: 
   Health: 100
   Defense: 1
-  MoveSpeed: 5
+  MoveSpeed: 4.3
   DistanceFromPlayer: 2
-  Damage: 1
+  Damage: 5
   MaxExp: 10
   MinExp: 20
   Sprite: {fileID: -9077779105418535390, guid: c029cd65c0e65804081dd2db7b7ebb65, type: 3}
