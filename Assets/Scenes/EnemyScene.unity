@@ -548,7 +548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 553039009}
   - component: {fileID: 553039010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 1142374083}
   - component: {fileID: 1142374087}
   - component: {fileID: 1142374088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -1233,7 +1233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   player: {fileID: 1142374084}
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 1142374087}
   currentLevel: 1
   currentXP: 0
   baseXPRequired: 100
@@ -1241,13 +1241,37 @@ MonoBehaviour:
   upgradeChoicesCount: 3
   OnLevelUp:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 905264745}
+        m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+        m_MethodName: OnLevelUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnUpgradeChoices:
     m_PersistentCalls:
       m_Calls: []
   OnXPChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 905264745}
+        m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+        m_MethodName: OnXPChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1142374084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,7 +1287,7 @@ MonoBehaviour:
   stats:
     vitaminD: 100
     vitaminC: 0
-    vitaminA: 0.0001
+    vitaminA: 0.35
     vitaminB: 5
     vitaminK: 5
     vitaminE: 0
@@ -1330,7 +1354,19 @@ MonoBehaviour:
   currentHp: 100
   OnHealthChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 905264745}
+        m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+        m_MethodName: OnHealthChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1350,7 +1386,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1597,9 +1633,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11500000, guid: 659481374802d154fb4292be3557e945, type: 3}
-        m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+        m_TargetAssemblyTypeName: UnityEditor.MonoScript, UnityEditor.CoreModule
         m_MethodName: 
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1632,7 +1668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1501395531}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2033,7 +2069,7 @@ GameObject:
   - component: {fileID: 1832398018}
   - component: {fileID: 1832398017}
   - component: {fileID: 1832398020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
