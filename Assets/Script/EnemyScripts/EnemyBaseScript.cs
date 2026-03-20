@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class EnemyBaseScript : MonoBehaviour
 {
     //public GameObject Target;
     public EnemyData Data;
+    public GameObject ExpPrefab;
     public float Health;
     public float Defense;
     public float MoveSpeed;
@@ -28,6 +30,8 @@ public class EnemyBaseScript : MonoBehaviour
     protected Vector3 _playerPos;
     protected PlayerHealth _playerHealth;
     protected Coroutine _atackingPlayer;
+    
+    
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -116,7 +120,8 @@ public class EnemyBaseScript : MonoBehaviour
 
     public void Die()
     {
-        //TODO: Сделать спавн опыта
+        GameObject Exp = Instantiate(ExpPrefab, transform.position, transform.rotation);
+        Exp.GetComponent<ExpScript>().Exp = Random.Range(MinExp, MaxExp);
         Destroy(this.gameObject);
     }
 
