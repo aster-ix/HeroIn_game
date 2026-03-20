@@ -112,7 +112,7 @@ MonoBehaviour:
   MaxExp: 0
   MinExp: 0
   AttackCooldown: 1
-  ProjectilePrefab: {fileID: 8785767126128891531, guid: 031054486af0fa44cbfb84a775eabdee, type: 3}
+  ProjectilePrefab: {fileID: 2270242570812832612, guid: 63ef5a175cfdc944b88f6a84e0f7b126, type: 3}
   FirePoint: {fileID: 254805824519036884}
   ProjectileSpeed: 5
   ProjectileLifeTime: 1
