@@ -6,10 +6,7 @@ using System;
 
 public class UpgradeCard : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI iconText;
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI descText;
-    [SerializeField] private TextMeshProUGUI valueText;
     [SerializeField] private Button selectButton;
 
     
@@ -29,10 +26,7 @@ public class UpgradeCard : MonoBehaviour
     {
         onSelected = callback;
 
-        if (iconText != null) iconText.text = string.IsNullOrEmpty(option.icon) ? "✦" : option.icon;
         if (nameText != null) nameText.text = option.displayName;
-        if (descText != null) descText.text = option.description;
-        if (valueText != null) valueText.text = FormatValue(option);
 
         if (background != null) background.color = defaultBg;
 

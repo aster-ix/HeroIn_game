@@ -4,17 +4,6 @@ using TMPro;
 using System.Collections.Generic;
 
 
-/// Иерархия Canvas:
-///   UpgradePanel (этот GameObject)
-///     ├─ Overlay (Image, тёмный полупрозрачный фон)
-///     ├─ Window
-///     │   ├─ TitleText (TMP)
-///     │   ├─ LevelBadge (TMP) — "Уровень 4!"
-///     │   └─ CardsContainer (HorizontalLayoutGroup)
-///     │       ├─ Card_0  ← UpgradeCard prefab
-///     │       ├─ Card_1
-///     │       └─ Card_2
-/// </summary>
 public class UpgradeUI : MonoBehaviour
 {
     [Header("Ссылки")]
@@ -46,7 +35,7 @@ public class UpgradeUI : MonoBehaviour
     public void OnLevelUp(int newLevel)
     {
         if (levelBadge != null)
-            levelBadge.text = $"Уровень {newLevel}!";
+            levelBadge.text = $"Level {newLevel}";
     }
 
     private void SelectUpgrade(UpgradeOption option)

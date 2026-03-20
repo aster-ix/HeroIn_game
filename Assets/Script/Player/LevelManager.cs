@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour
             playerHealth.OnMaxHpUpgraded(upgrade.value); // лечим на величину апгрейда
 
         Time.timeScale = 1f;
-        Debug.Log($"Апгрейд выбран: {upgrade.displayName} +{upgrade.value}");
+        Debug.Log($"upgrade chosen: {upgrade.displayName} +{upgrade.value}");
     }
 
     private List<UpgradeOption> GenerateUpgradeChoices(int count)
@@ -97,56 +97,56 @@ public class LevelManager : MonoBehaviour
             new UpgradeOption
             {
                 statType    = StatType.VitaminD,
-                displayName = "Витамин D",
-                description = "+HP (и мгновенное лечение)",
+                displayName = "Vitamin D",
+                description = "+HP (and hp reset)",
                 icon        = "💛",
                 value       = 25f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminC,
-                displayName = "Витамин C",
-                description = "+% защиты",
+                displayName = "Vitamin C",
+                description = "+% armor",
                 icon        = "🟠",
                 value       = 10f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminA,
-                displayName = "Витамин A",
-                description = "+ к размеру снарядов",
+                displayName = "Vitamin A",
+                description = "+ to attacks scale",
                 icon        = "🟡",
                 value       = 0.05f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminB,
-                displayName = "Витамин B",
-                description = "+ к скорости движения",
+                displayName = "Vitamin B",
+                description = "+ movement speed",
                 icon        = "🔵",
                 value       = 1f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminK,
-                displayName = "Витамин K",
-                description = "+% шанс крита",
+                displayName = "Vitamin K",
+                description = "+% crit chance",
                 icon        = "🔴",
                 value       = 10f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminE,
-                displayName = "Витамин E",
-                description = "+ регенерации HP/с",
+                displayName = "Vitamin E",
+                description = "+ regeneration HP/s",
                 icon        = "💚",
                 value       = 2f,
             },
             new UpgradeOption
             {
                 statType    = StatType.VitaminPP,
-                displayName = "Витамин PP",
-                description = "+ к урону",
+                displayName = "Vitamin PP",
+                description = "+ to damage",
                 icon        = "⚔️",
                 value       = 8f,
             },

@@ -20,5 +20,5 @@ MonoBehaviour:
   Damage: 1
   MaxExp: 10
   MinExp: 20
-  Sprite: {fileID: -835154295696425961, guid: 65a9c3a170438cc48bbf526f7255b66c, type: 3}
+  Sprite: {fileID: -9077779105418535390, guid: c029cd65c0e65804081dd2db7b7ebb65, type: 3}
   ChaseDistance: 3
