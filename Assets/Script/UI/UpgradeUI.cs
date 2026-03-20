@@ -6,32 +6,51 @@ using System.Collections.Generic;
 
 public class UpgradeUI : MonoBehaviour
 {
-    [Header("Ссылки")]
+
     [SerializeField] private LevelManager levelManager;
-    [SerializeField] private GameObject panel;          
-    [SerializeField] private TextMeshProUGUI levelBadge;  
+    [SerializeField] private GameObject panel;
+    [SerializeField] private TextMeshProUGUI levelBadge;
 
-    [Header("Карточки")]
-    [SerializeField] private UpgradeCard[] cards;         // 3 карточки из сцены
 
-    //LevelManager.OnUpgradeChoices
+    [SerializeField] private UpgradeCard[] cards;
+
+
+    [SerializeField] private TextMeshProUGUI statsText;
+
+    private void Awake()
+    {
+        if (levelManager == null)
+            levelManager = FindFirstObjectByType<LevelManager>();
+
+        if (levelManager == null)
+            Debug.LogError("UpgradeUI");
+
+        if (panel == null)
+            Debug.LogError("UpgradeUI");
+        else
+            panel.SetActive(false);
+    }
+
+
     public void ShowUpgradeChoices(List<UpgradeOption> choices)
     {
-        // Скрываем лишние карточки
+        if (panel == null || cards == null) return;
+
+        PlayerStats stats = levelManager?.player?.Stats;
+
         foreach (var card in cards)
             card.Hide();
 
-        // Заполняем активные
         for (int i = 0; i < choices.Count && i < cards.Length; i++)
         {
-            int idx = i; // захват для лямбды
-            cards[i].Setup(choices[i], () => SelectUpgrade(choices[idx]));
+            int idx = i;
+            cards[i].Setup(choices[i], () => SelectUpgrade(choices[idx]), stats);
         }
 
+        RefreshStatsPanel(stats);
         panel.SetActive(true);
     }
 
-    // LevelManager.OnLevelUp
     public void OnLevelUp(int newLevel)
     {
         if (levelBadge != null)
@@ -40,13 +59,21 @@ public class UpgradeUI : MonoBehaviour
 
     private void SelectUpgrade(UpgradeOption option)
     {
-        levelManager.SelectUpgrade(option);
-        panel.SetActive(false);
+        levelManager?.SelectUpgrade(option);
+        if (panel != null) panel.SetActive(false);
     }
 
-    private void Awake()
+    private void RefreshStatsPanel(PlayerStats s)
     {
-        if (panel != null)
-            panel.SetActive(false); // скрыта по умолчанию
+        if (statsText == null || s == null) return;
+
+        statsText.text =
+            $"[D]  HP:       {s.vitaminD:F0}\n" +
+            $"[C]  armor:    {s.vitaminC:F0}%\n" +
+            $"[PP]  damage:     {s.vitaminPP:F0}\n" +
+            $"[B]  speed: {s.vitaminB:F1}\n" +
+            $"[K]  crit chance:     {s.vitaminK:F0}%\n" +
+            $"[E]  regeneration:    {s.vitaminE:F1} HP/s\n" +
+            $"[A]  scale:   {s.vitaminA:F2}x";
     }
 }
